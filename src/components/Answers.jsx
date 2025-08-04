@@ -1,15 +1,9 @@
-import React from 'react';
+import React from 'react'
 
-const Answers = ({ answers, onSelectAnswer }) => {
+const Answers = () => {
   return (
-    <div id="answers">
-      {answers.map((answer, index) => (
-        <div className="answer" key={index}>
-          <button onClick={() => onSelectAnswer(answer)}>{answer}</button>
-        </div>
-      ))}
-    </div>
-  );
-};
+    <div>Answers</div>
+  )
+}
 
-export default Answers;
+export default Answers

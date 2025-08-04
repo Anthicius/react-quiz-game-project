@@ -1,21 +1,34 @@
-import React, { useState } from 'react'
-import Question from './Question'
-import Summary from './Summary'
-import questions from '../questions'
+import { useState } from "react";
+import Question from "./Question";
+import Summary from "./Summary";
+import QUESTIONS from "../questions";
+import QuestionTimer from "./QuestionTimer";
 
 const Quiz = () => {
-    const [questionList, setQuestionList] = useState(questions)
-    const [questionIndex, setQuestionIndex] =useState(0)
+  const [userAnswers, setUserAnswers] = useState([]);
 
-    const handleSelectAnswer = (answer) => {
-            setQuestionIndex((prevValue) => prevValue +1)
-    }
+  const activeQuestionIndex = userAnswers.length;
+  
+  const handleSelectAnswer = (selectedAnswer) => {
+    setUserAnswers((prevUserAnswers)=> {
+      return [...prevUserAnswers, selectedAnswer]
+    })
+  }
 
   return (
-    <div id='quiz'>
-        <Question question={questionList[questionIndex]} onSelectAnswer={handleSelectAnswer}/>
+    <div id="quiz">
+    <div id="question">
+      <h2>{QUESTIONS[activeQuestionIndex].text}</h2>
+      <ul id="answers">
+        {QUESTIONS[activeQuestionIndex].answers.map((answer)=>(
+          <li key={answer} className="answer">
+            <button onClick={() => handleSelectAnswer(answer)}>{answer}</button>
+          </li>
+        ))}
+      </ul>
     </div>
-  )
-}
+    </div>
+  );
+};
 
-export default Quiz
+export default Quiz;

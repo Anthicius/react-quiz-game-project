@@ -1,13 +1,9 @@
-import React from "react";
-import Answers from "./Answers";
+import React from 'react'
 
-const Question = ({ question, onSelectAnswer }) => {
+const Question = () => {
   return (
-    <div id="question">
-      <h2>{question.text}</h2>
-      <Answers onSelectAnswer={onSelectAnswer} answers={question.answers} />
-    </div>
-  );
-};
+    <div>Question</div>
+  )
+}
 
-export default Question;
+export default Question
