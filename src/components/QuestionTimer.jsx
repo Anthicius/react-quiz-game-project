@@ -1,7 +1,9 @@
-const QuestionTimer = () => {
+const QuestionTimer = ({timeout}) => {
+
+  setTimeout(()=> {}, timeout)
 
   return (
-    <progress/>
+    <progress id="question-time"/>
   )
 }
 
