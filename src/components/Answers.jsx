@@ -1,9 +1,41 @@
-import React from 'react'
+import React ,{useRef} from "react";
 
-const Answers = () => {
+const Answers = ({ answers, selectedAnswer, answerState, onSelect }) => {
+    const shuffledAnswers = useRef();
+  if (!shuffledAnswers.current) {
+    shuffledAnswers.current = [...answers];
+    shuffledAnswers.current.sort(() => Math.random() - 0.5);
+  }
+
   return (
-    <div>Answers</div>
-  )
-}
+    <ul id="answers">
+      {shuffledAnswers.current.map((answer) => {
+        const isSelected = selectedAnswer === answer;
+        let cssClass = '';
+        if (answerState === "answered" && isSelected) {
+          cssClass = "selected";
+        }
 
-export default Answers
+        if (
+          (answerState === "correct" || answerState === "wrong") &&
+          isSelected
+        ) {
+          cssClass = answerState;
+        }
+        return (
+          <li key={answer} className="answer">
+            <button
+              onClick={() => onSelect(answer)}
+              className={cssClass}
+              disabled ={answerState!== ''}
+            >
+              {answer}
+            </button>
+          </li>
+        );
+      })}
+    </ul>
+  );
+};
+
+export default Answers;

@@ -1,9 +1,7 @@
 import { useState, useCallback } from "react";
 import Question from "./Question";
-import Summary from "./Summary";
 import QUESTIONS from "../questions";
-import QuestionTimer from "./QuestionTimer";
-import quizCompleteImage from "../assets/quiz-complete.png";
+import Summary from "./Summary";
 
 const Quiz = () => {
   const [userAnswers, setUserAnswers] = useState([]);
@@ -27,31 +25,18 @@ const Quiz = () => {
 
   if (quizIsComplete) {
     return (
-      <div id="summary">
-        <img src={quizCompleteImage} alt="Trophy icon" />
-        <h2>Quiz Completed!</h2>
-      </div>
+      <Summary userAnswers={userAnswers}/>
     );
   }
 
-  const shuffledAnswers = [...QUESTIONS[activeQuestionIndex].answers];
-  shuffledAnswers.sort(() => Math.random() - 0.5);
-
   return (
     <div id="quiz">
-      <div id="question">
-        <QuestionTimer key={activeQuestionIndex} timeout={5000} onTimeout={handleSkipAnswer} />
-        <h2>{QUESTIONS[activeQuestionIndex].text}</h2>
-        <ul id="answers">
-          {shuffledAnswers.map((answer) => (
-            <li key={answer} className="answer">
-              <button onClick={() => handleSelectAnswer(answer)}>
-                {answer}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <Question
+        key={activeQuestionIndex}
+        index={activeQuestionIndex}
+        onSelectAnswer={handleSelectAnswer}
+        onSkipAnswer={handleSkipAnswer}
+      />
     </div>
   );
 };
